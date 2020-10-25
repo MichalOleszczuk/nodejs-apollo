@@ -43,7 +43,7 @@ export function useUserList() {
   const [fetchedData, setFetchedData] = useState<UserData['Users']['result']>([]);
   const [hasMore, setHasMore] = useState(false);
 
-  const { data, fetchMore } = useQuery<UserData, UserVars>(GET_ROCKET_INVENTORY(take, skip), {
+  const { loading, data, fetchMore } = useQuery<UserData, UserVars>(GET_ROCKET_INVENTORY(take, skip), {
     notifyOnNetworkStatusChange: true,
   });
 
@@ -52,6 +52,7 @@ export function useUserList() {
       setFetchedData(currentData => [...currentData, ...data.Users.result]);
       setHasMore(fetchedData.length + take < data.Users.count);
     }
+    // eslint-disable-next-line
   }, [data]);
 
   const loadMore = useCallback(() => {
@@ -81,5 +82,5 @@ export function useUserList() {
     });
   }, [take, skip, fetchMore]);
 
-  return { hasMore, fetchedData, loadMore };
+  return { loading, hasMore, fetchedData, loadMore };
 }

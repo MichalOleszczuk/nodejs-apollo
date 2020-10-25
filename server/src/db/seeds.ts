@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { connectDatabase } from './index';
 
-const usersCount = 100;
+const usersCount = 98;
 
 const seed = async () => {
   try {
@@ -15,11 +15,30 @@ const seed = async () => {
         id: i,
         name: faker.name.firstName(),
         shortBio: `I was born on ${faker.date.past()}`,
-        isVerified: false,
+        isVerified: Math.random() >= 0.5,
       });
 
       await UserSeed.save();
     }
+
+    // Special guest for filtering. Case sensitive.
+    const JasonBourne = db.users.create({
+      id: 99,
+      name: 'Peter Lastname',
+      shortBio: `I was born in St Spetersburg`,
+      isVerified: true,
+    });
+
+    await JasonBourne.save();
+
+    const JasonWhatever = db.users.create({
+      id: 100,
+      name: 'Peter Whatever',
+      shortBio: `I was born in St Spetersburg`,
+      isVerified: false,
+    });
+
+    await JasonWhatever.save();
 
     console.log('[seed] : success');
   } catch (error) {
