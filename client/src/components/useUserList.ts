@@ -49,37 +49,18 @@ export function useUserList() {
 
   useEffect(() => {
     if (!!data) {
-      setFetchedData(currentData => [...currentData, ...data.Users.result]);
+      setFetchedData([...fetchedData, ...data.Users.result]);
       setHasMore(fetchedData.length + take < data.Users.count);
     }
     // eslint-disable-next-line
   }, [data]);
 
-  const loadMore = useCallback(() => {
-    return fetchMore({
-      query: GET_ROCKET_INVENTORY(take, skip),
-      variables: {
-        take,
-        skip,
-      },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return previousResult;
-
-        if (!!previousResult && skip < previousResult.Users.count) {
-          setSkip(skip + take);
-          return {
-            ...previousResult,
-            Users: {
-              ...previousResult.Users,
-              result: fetchMoreResult.Users.result,
-              count: fetchMoreResult.Users.count,
-            },
-          };
-        } else {
-          return previousResult;
-        }
-      },
+  const loadMore = useCallback(async () => {
+    const result = await fetchMore({
+      query: GET_ROCKET_INVENTORY(take, skip + take),
     });
+    setSkip(skip + take);
+    return result.data;
   }, [take, skip, fetchMore]);
 
   return { loading, hasMore, fetchedData, loadMore };
