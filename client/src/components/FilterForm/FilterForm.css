@@ -1,0 +1,8 @@
+.filterFormCheck {
+  position: static;
+}
+
+.filterFormCheck input {
+  position: static;
+  margin-right: 10px;
+}

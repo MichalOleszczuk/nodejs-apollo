@@ -5,6 +5,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import './App.css';
 import { UserList } from './components/UserList';
+import GlobalState from './context/GlobalState';
 
 library.add(fab, faCheck, faTimes);
 
@@ -16,11 +17,13 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className='App'>
-        <header className='App-header'>
-          <UserList />
-        </header>
-      </div>
+      <GlobalState>
+        <div className='App'>
+          <header className='App-header'>
+            <UserList />
+          </header>
+        </div>
+      </GlobalState>
     </ApolloProvider>
   );
 }

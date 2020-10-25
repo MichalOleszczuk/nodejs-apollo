@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Image, OverlayTrigger, Row, Spinner, Tooltip } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import 'react-virtualized/styles.css';
+import { UsersContext } from '../context/users/users-context';
+import FilterForm from './FilterForm/FilterForm';
 import './UserList.css';
-import { useUserList } from './useUserList';
 
 export function UserList() {
-  const { loading, hasMore, fetchedData, loadMore } = useUserList();
+  const { loading, hasMore, fetchedData, loadMore } = useContext(UsersContext);
 
   if (!fetchedData.length && loading)
     return (
@@ -19,6 +20,7 @@ export function UserList() {
 
   return (
     <Container>
+      <FilterForm />
       <Row>
         <Col className='border border-right-0'>ID</Col>
         <Col className='border border-right-0'>Name</Col>
