@@ -24,32 +24,4 @@ export function UserList() {
       ))}
     </InfiniteScroll>
   );
-
-  // return (
-  //   <div>
-  //     <h3>Users</h3>
-  //     {loading ? (
-  //       <p>Loading ...</p>
-  //     ) : (
-  //       <table>
-  //         <thead>
-  //           <tr>
-  //             <th>Name</th>
-  //             <th>ShortBio</th>
-  //           </tr>
-  //         </thead>
-  //         <tbody>
-  //           {data &&
-  //             data.Users &&
-  //             data.Users.result.map((user) => (
-  //               <tr key={user.id}>
-  //                 <td>{user.name}</td>
-  //                 <td>{user.shortBio}</td>
-  //               </tr>
-  //             ))}
-  //         </tbody>
-  //       </table>
-  //     )}
-  //   </div>
-  // );
 }
